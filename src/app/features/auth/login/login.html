@@ -1,0 +1,40 @@
+<div class="login-page dark-mode" style="min-height: 100vh;">
+  <div class="login-box">
+    <div class="login-logo">
+      <b>Burrito Lector</b>
+    </div>
+
+    <div class="card card-outline card-primary">
+      <div class="card-header text-center">
+        <h3 class="card-title float-none">Hola de nuevo</h3>
+      </div>
+      <div class="card-body">
+        <p class="login-box-msg">Ingresa tus credenciales para continuar</p>
+
+        <form id="quickForm">
+          <label class="form-text" for="email">Correo</label>
+          <div class="input-group mb-3">
+            <input type="email" name="email" class="form-control" id="email" [(ngModel)]="email">
+          </div>
+
+          <label class="form-text" for="password">Contraseña</label>
+          <div class="input-group mb-3">
+            <input type="password" name="password" class="form-control" id="password" [(ngModel)]="password">
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary btn-block" (click)="onSubmit()">Ingresar</button>
+            </div>
+          </div>
+        </form>
+
+        <div class="card-footer row mt-3">
+          <div class="col-12">
+            ¿Aun no tienes cuenta? <a routerLink="/register">Registrate</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
