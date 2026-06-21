@@ -1,0 +1,49 @@
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Gestión de libros</h1>
+            </div>
+        </div>
+        <div class="mb-2">
+            <button class="btn btn-primary btn-sm" type="button" routerLink="/dashboard/agregar">Añadir libro</button>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Aquí aparecerán todos los libros existentes.</h3>
+    </div>
+
+    <div class="card-body">
+        <table id="example2" class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>Titulo</th>
+                <th>Autor</th>
+                <th>Opciones</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            @for(act of libros(); track act.id_libro) {
+                <tr>
+                    <td>{{ act.titulo }}</td>
+                    <td>{{ act.autores }}</td>
+                    <td>
+                        <button class="btn btn-primary" style="margin-right: 10px;">Editar</button>
+                        <button class="btn btn-danger" (click)="eliminarLibro(act.id_libro)">Eliminar</button>
+                    </td>
+                </tr>
+            }
+            @empty {
+                <tr>
+                    <td colspan="3" class="text-center text-muted py-4">
+                        No hay nada por aquí aun.
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

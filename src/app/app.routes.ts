@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
+import { authAdminGuard } from './core/guards/auth-admin.guard';
 
 export const routes: Routes = [
     {
@@ -12,6 +13,29 @@ export const routes: Routes = [
                 redirectTo: 'inicio',
                 pathMatch: 'full',
             },
+
+            {
+                path: 'forbidden',
+                loadComponent: () => import('./features/forbidden/forbidden').then(m => m.Forbidden),
+            },
+
+            {
+                path: 'estadisticas',
+                canActivate: [authAdminGuard],
+                loadComponent: () => import('./features/admin/estadisticas/estadisticas').then(m => m.Estadisticas),
+            },
+
+            {
+                path: 'gestion',
+                canActivate: [authAdminGuard],
+                loadComponent: () => import('./features/admin/gestion-libros/gestion').then(m => m.Gestion),
+            },
+
+            {
+                path: 'agregar',
+                canActivate: [authAdminGuard],
+                loadComponent: () => import('./features/admin/agregar-libros/agregar').then(m => m.AgregarLibros),
+            }
         ]
     },
 
