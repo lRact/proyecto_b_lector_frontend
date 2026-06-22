@@ -1,11 +1,13 @@
 import { Component, inject, signal } from '@angular/core';
 import { AuthService } from '../../auth/services/auth.service';
 import { LibrosService } from '../services/libros.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-admin-estadisticas',
     standalone: true,
     templateUrl: './estadisticas.html',
+    imports: [RouterLink],
 })
 export class Estadisticas {
     totalUsuarios = signal<number>(0);
@@ -27,7 +29,7 @@ export class Estadisticas {
             error: (err) => {
                 const error = err.error?.message ? err.error.message.toString() : err.message;
                 console.error(error);
-            }
+            },
         });
 
         this.librosService.getAll().subscribe({
@@ -37,7 +39,7 @@ export class Estadisticas {
             error: (err) => {
                 const error = err.error?.message ? err.error.message.toString() : err.message;
                 console.error(error);
-            }
-        })
+            },
+        });
     }
 }

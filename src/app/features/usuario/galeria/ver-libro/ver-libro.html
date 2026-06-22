@@ -1,0 +1,61 @@
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">{{ titulo() }}</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="row mb-5">
+        <div class="col-md-4 text-center">
+            <img [src]="image_url()" alt="Portada" style="width: 100%; max-width: 300px; height: auto; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); margin-bottom: 15px">
+        </div>
+
+        <div class="col-md-8">
+            <div class="card card-primary card-outline">
+                <div class="card-body">
+                    <h5 class="text-primary">Autores: <span class="text-dark">{{ autores() }}</span></h5>
+                    <h5 class="text-primary">Editor: <span class="text-dark">{{ editor() }}</span></h5>
+                    <h5 class="text-primary">Géneros: <span class="text-dark">{{ generos() }}</span></h5>
+
+                    <hr>
+                    <h5>Sinopsis:</h5>
+                    <p class="text-muted">{{ sinopsis() }}</p>
+                    <hr>
+
+                    @if(puntuacion() !== 0) {
+                        <div class="alert alert-success">
+                            <h5><i class="icon fas fa-check"></i> ¡Ya reseñaste este libro!</h5>
+                            Le diste una puntuación de: <strong>{{ puntuacion() }} / 5 estrellas</strong>
+                        </div>
+                        <button class="btn btn-danger mt-2" (click)="eliminarResena()"><i class="fas fa-trash"></i> Eliminar reseña</button>
+                    }
+                    @else {
+                        <div class="bg-light p-3 rounded">
+                            <h5>Califica este libro:</h5>
+                            <p class="text-muted text-sm">Aún no has guardado una reseña para este libro.</p>
+
+                            <form [formGroup]="resenaForm" (ngSubmit)="crearResena()" class="form-inline">
+                                <div class="form-group mr-2">
+                                    <select formControlName="rating" class="form-control">
+                                        <option value="5">⭐⭐⭐⭐⭐ (5) Excelente</option>
+                                        <option value="4">⭐⭐⭐⭐ (4) Muy bueno</option>
+                                        <option value="3">⭐⭐⭐ (3) Aceptable</option>
+                                        <option value="2">⭐⭐ (2) Malo</option>
+                                        <option value="1">⭐ (1) Muy malo</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary" [disabled]="resenaForm.invalid">
+                                    <i class="fas fa-star"></i> Enviar calificación
+                                </button>
+                            </form>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

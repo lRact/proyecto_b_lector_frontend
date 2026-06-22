@@ -19,6 +19,8 @@
         <table id="example2" class="table table-bordered table-hover">
             <thead>
             <tr>
+                <th>ID</th>
+                <th>Portada</th>
                 <th>Titulo</th>
                 <th>Autor</th>
                 <th>Opciones</th>
@@ -28,17 +30,21 @@
             <tbody>
             @for(act of libros(); track act.id_libro) {
                 <tr>
-                    <td>{{ act.titulo }}</td>
-                    <td>{{ act.autores }}</td>
-                    <td>
-                        <button class="btn btn-primary" style="margin-right: 10px;">Editar</button>
+                    <td class="align-middle">{{ act.id_libro }}</td>
+                    <td class="text-center">
+                        <img [src]="act.image_url" alt="{{ act.titulo }}" style="width: 100px; height: 125px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+                    </td>
+                    <td class="align-middle">{{ act.titulo }}</td>
+                    <td class="align-middle">{{ act.autores }}</td>
+                    <td class="align-middle">
+                        <button class="btn btn-primary" style="margin-right: 10px;" [routerLink]="['/dashboard/editar', act.id_libro]">Editar</button>
                         <button class="btn btn-danger" (click)="eliminarLibro(act.id_libro)">Eliminar</button>
                     </td>
                 </tr>
             }
             @empty {
                 <tr>
-                    <td colspan="3" class="text-center text-muted py-4">
+                    <td colspan="5" class="text-center text-muted py-4">
                         No hay nada por aquí aun.
                     </td>
                 </tr>

@@ -10,8 +10,28 @@ export const routes: Routes = [
         children: [
             {
                 path: '',
-                redirectTo: 'inicio',
+                redirectTo: 'galeria',
                 pathMatch: 'full',
+            },
+
+            {
+                path: 'galeria',
+                loadComponent: () => import('./features/usuario/galeria/libros/libros').then(m => m.Galeria),
+            },
+
+            {
+                path: 'galeria/:id',
+                loadComponent: () => import('./features/usuario/galeria/ver-libro/ver-libro').then(m => m.Libro),
+            },
+
+            {
+                path: 'resenas',
+                loadComponent: () => import('./features/usuario/resenas/resenas').then(m => m.Resenas),
+            },
+
+            {
+                path: 'afinidad',
+                loadComponent: () => import('./features/usuario/afinidad/afinidad').then(m => m.Afinidad),
             },
 
             {
@@ -34,7 +54,13 @@ export const routes: Routes = [
             {
                 path: 'agregar',
                 canActivate: [authAdminGuard],
-                loadComponent: () => import('./features/admin/agregar-libros/agregar').then(m => m.AgregarLibros),
+                loadComponent: () => import('./features/admin/agregar-libros/agregar').then(m => m.Agregar),
+            },
+
+            {
+                path: 'editar/:id',
+                canActivate: [authAdminGuard],
+                loadComponent: () => import('./features/admin/editar-libros/editar').then(m => m.Editar),
             }
         ]
     },

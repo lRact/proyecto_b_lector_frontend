@@ -1,15 +1,16 @@
 import { Component, inject, signal } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LibrosService } from '../services/libros.service';
 
 @Component({
-    selector: 'app-admin-agregar',
+    selector: 'app-admin-editar',
     standalone: true,
-    templateUrl: './agregar.html',
-    imports: [RouterLink, ReactiveFormsModule]
+    templateUrl: './editar.html',
+    imports: [RouterLink, ReactiveFormsModule],
 })
-export class Agregar {
+export class Editar {
+    id_libro: number = 0;
     libroForm: FormGroup;
     portada: File | null = null;
 
@@ -17,6 +18,7 @@ export class Agregar {
 
     private formBuilder = inject(FormBuilder);
     private router = inject(Router);
+    private route = inject(ActivatedRoute);
     private librosService = inject(LibrosService);
 
     constructor() {
@@ -29,19 +31,24 @@ export class Agregar {
         });
     }
 
+    ngOnInit(): void {
+        this.id_libro = Number(this.route.snapshot.paramMap.get('id'));
+        this.cargarLibro();
+    }
+
     onFileChange(e: any): void {
         const file = e.target.files[0];
-        if(file) {
+        if (file) {
             this.portada = file;
             const label = e.target.nextElementSibling;
-            if(label) {
+            if (label) {
                 label.innerText = file.name;
             }
         }
     }
 
     onSubmit(): void {
-        if(this.libroForm.invalid || !this.portada) {
+        if (this.libroForm.invalid || !this.portada) {
             this.message.set('Completa todos los campos');
             return;
         }
@@ -55,14 +62,30 @@ export class Agregar {
         formData.append('generos', this.libroForm.get('generos')?.value);
         formData.append('image', this.portada);
 
-        this.librosService.create(formData).subscribe({
+        this.librosService.update(this.id_libro, formData).subscribe({
             next: () => {
-                console.log('Libro añadido.');
+                console.log(`Libro ${ this.id_libro } editado.`);
                 this.router.navigate(['/dashboard/gestion']);
             },
-            error: err => {
+            error: (err) => {
                 const error = err.error?.message ? err.error.message.toString() : err.message;
                 this.message.set(error);
+                console.error(error);
+            },
+        });
+    }
+
+    cargarLibro(): void {
+        this.librosService.getById(this.id_libro).subscribe({
+            next: (libro) => {
+                this.libroForm.patchValue({'titulo': libro.titulo});
+                this.libroForm.patchValue({'editor': libro.editor});
+                this.libroForm.patchValue({'sinopsis': libro.sinopsis});
+                this.libroForm.patchValue({'autores': libro.autores});
+                this.libroForm.patchValue({'generos': libro.generos});
+            },
+            error: (err) => {
+                const error = err.error?.message ? err.error.message.toString() : err.message;
                 console.error(error);
             }
         });

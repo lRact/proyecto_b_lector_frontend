@@ -11,7 +11,11 @@ export class LibrosService {
     private apiUrl = `${ environment.apiUrl }/libro`;
 
     getAll(): Observable<any[]> {
-        return this.http.get<any>(this.apiUrl);
+        return this.http.get<any[]>(this.apiUrl);
+    }
+
+    getById(id_libro: number): Observable<any> {
+        return this.http.get<any>(`${ this.apiUrl }/${ id_libro }`);
     }
 
     create(libro: any): Observable<any> {

@@ -2,14 +2,14 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Agregar libros</h1>
+                <h1 class="m-0">Editar libros</h1>
             </div>
         </div>
     </div>
 </div>
 <div class="card card-primary">
     <div class="card-header">
-        <h3 class="card-title">Agrega mas libros como administrador.</h3>
+        <h3 class="card-title">Edita un libro ya existente.</h3>
     </div>
 
     <form [formGroup]="libroForm" (ngSubmit)="onSubmit()">
@@ -63,7 +63,7 @@
         </div>
 
         <div class="card-footer">
-            <button type="submit" class="btn btn-primary" style="margin-right: 10px">Agregar</button>
+            <button type="submit" class="btn btn-primary" style="margin-right: 10px">Editar</button>
             <button type="submit" class="btn btn-danger" routerLink="/dashboard/gestion">Cancelar</button>
         </div>
     </form>

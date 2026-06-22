@@ -1,0 +1,54 @@
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Afinidad con otros burritos lectores</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="card card-primary card-outline">
+        <div class="card-header">
+            <h3 class="card-title">Usuarios con gustos literarios similares a los tuyos</h3>
+        </div>
+        <div class="card-body p-0"> <table class="table table-bordered table-striped table-hover m-0">
+            <thead class="bg-light">
+            <tr>
+                <th>Título</th>
+                <th>Lector</th>
+                <th class="text-center" style="width: 150px;">Su rating</th>
+                <th class="text-center" style="width: 150px;">Mi rating</th>
+            </tr>
+            </thead>
+            <tbody>
+                @for(afinidad of afinidades(); track $index) {
+                    <tr>
+                        <td class="align-middle font-weight-bold">{{ afinidad.titulo }}</td>
+                        <td class="align-middle">
+                            <i class="fas fa-user text-secondary mr-2"></i>
+                            {{ afinidad.lector }}
+                        </td>
+                        <td class="text-center align-middle text-warning" style="letter-spacing: 2px;">
+                            {{ convertirEstrellas(afinidad.suRating) }}
+                        </td>
+                        <td class="text-center align-middle text-warning" style="letter-spacing: 2px;">
+                            {{ convertirEstrellas(afinidad.miRating) }}
+                        </td>
+                    </tr>
+                }
+                @empty {
+                    <tr>
+                        <td colspan="4" class="text-center text-muted py-5">
+                            <i class="fas fa-ghost fa-3x mb-3 d-block opacity-50"></i>
+                            <h5>Sin coincidencias en el radar</h5>
+                            <p>Aún no hay suficiente información para calcular tu afinidad. ¡Sigue leyendo y calificando libros!</p>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
